@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sensor
@@ -12,6 +13,8 @@ namespace Sensor
         
         private Camera _camera;
         private Plane[] _frustumPlanes;
+        
+        private HashSet<Collider> _detectedColliders = new HashSet<Collider>();
 
 
         private void Awake()
@@ -36,7 +39,11 @@ namespace Sensor
 
                 if (GeometryUtility.TestPlanesAABB(_frustumPlanes, currentCollider.bounds))
                 {
-                    Debug.Log($"Detected in view: {currentCollider.name}", currentCollider.gameObject);
+                    if (!_detectedColliders.Contains(currentCollider))
+                    {
+                        _detectedColliders.Add(currentCollider);
+                        Debug.Log($"Detected new object: {currentCollider.name}");
+                    }
                 }
             }
         }
