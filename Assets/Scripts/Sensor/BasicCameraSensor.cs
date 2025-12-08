@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using DetectedObject;
 using UnityEngine;
 
 namespace Sensor
 {
     public class BasicCameraSensor : MonoBehaviour
     {
+        public MonitoringPanel.MonitoringPanelController monitoringPanel;
+
         public float detectionRadius = 20f;
         public LayerMask detectionLayer;
         
@@ -44,7 +47,7 @@ namespace Sensor
             foreach (var colliderToRemove in _toRemove)
             {
                 _detectedCollidersCollected.Remove(colliderToRemove);
-                Debug.Log($"Object: {colliderToRemove.name} is no longer detected.");
+                monitoringPanel?.OnObjecExitFOV(colliderToRemove);
             }
 
             for (int i = 0; i < possibleCollidersInViewCount; i++)
@@ -60,7 +63,7 @@ namespace Sensor
                         
                         DetectedObjectData currentDetectedObjectData = new DetectedObjectData(currentCollider);
                         
-                        Debug.Log($"Object Detected: {currentDetectedObjectData.ToString()}");
+                        monitoringPanel?.OnObjectDetected(currentCollider, currentDetectedObjectData);
                         
                     }
                 }
