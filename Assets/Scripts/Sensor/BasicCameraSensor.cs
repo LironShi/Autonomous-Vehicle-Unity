@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Sensor
@@ -14,7 +15,7 @@ namespace Sensor
         private Camera _camera;
         private Plane[] _frustumPlanes;
         
-        private HashSet<Collider> _detectedColliders = new HashSet<Collider>();
+        private HashSet<Collider> _detectedCollidersCollected = new HashSet<Collider>();
 
 
         private void Awake()
@@ -31,6 +32,15 @@ namespace Sensor
                 detectionRadius,
                 _colliders,
                 detectionLayer);
+            
+            foreach (var colliderCollected in _detectedCollidersCollected)
+            {
+                if (!GeometryUtility.TestPlanesAABB(_frustumPlanes, colliderCollected.bounds))
+                {   
+                    _detectedCollidersCollected.Remove(colliderCollected);
+                    Debug.Log($"Object: {colliderCollected.name} is no longer detected.");
+                }
+            }
 
             for (int i = 0; i < possibleCollidersInViewCount; i++)
             {
@@ -39,9 +49,9 @@ namespace Sensor
 
                 if (GeometryUtility.TestPlanesAABB(_frustumPlanes, currentCollider.bounds))
                 {
-                    if (!_detectedColliders.Contains(currentCollider))
+                    if (!_detectedCollidersCollected.Contains(currentCollider))
                     {
-                        _detectedColliders.Add(currentCollider);
+                        _detectedCollidersCollected.Add(currentCollider);
                         Debug.Log($"Detected new object: {currentCollider.name}");
                     }
                 }
