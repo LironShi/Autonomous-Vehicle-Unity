@@ -16,6 +16,7 @@ namespace Sensor
         private Plane[] _frustumPlanes;
         
         private HashSet<Collider> _detectedCollidersCollected = new HashSet<Collider>();
+        private List<Collider> _toRemove = new List<Collider>();
 
 
         private void Awake()
@@ -37,9 +38,13 @@ namespace Sensor
             {
                 if (!GeometryUtility.TestPlanesAABB(_frustumPlanes, colliderCollected.bounds))
                 {   
-                    _detectedCollidersCollected.Remove(colliderCollected);
-                    Debug.Log($"Object: {colliderCollected.name} is no longer detected.");
+                    _toRemove.Add(colliderCollected);
                 }
+            }
+            foreach (var colliderToRemove in _toRemove)
+            {
+                _detectedCollidersCollected.Remove(colliderToRemove);
+                Debug.Log($"Object: {colliderToRemove.name} is no longer detected.");
             }
 
             for (int i = 0; i < possibleCollidersInViewCount; i++)
@@ -60,6 +65,7 @@ namespace Sensor
                     }
                 }
             }
+            _toRemove.Clear();
         }
     }
 }
