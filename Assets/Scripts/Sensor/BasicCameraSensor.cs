@@ -38,7 +38,7 @@ namespace Sensor
                 if (!GeometryUtility.TestPlanesAABB(_frustumPlanes, colliderCollected.bounds))
                 {   
                     _detectedCollidersCollected.Remove(colliderCollected);
-                    Debug.Log($"Object: {colliderCollected.name} is no longer detected.");
+                    DetectedObjectData.LogExitDetected(colliderCollected);
                 }
             }
 
@@ -52,7 +52,11 @@ namespace Sensor
                     if (!_detectedCollidersCollected.Contains(currentCollider))
                     {
                         _detectedCollidersCollected.Add(currentCollider);
-                        Debug.Log($"Detected new object: {currentCollider.name}");
+                        
+                        DetectedObjectData currentDetectedObjectData = new DetectedObjectData(currentCollider);
+                        
+                        Debug.Log($"Object Detected: {currentDetectedObjectData.ToString()}");
+                        
                     }
                 }
             }

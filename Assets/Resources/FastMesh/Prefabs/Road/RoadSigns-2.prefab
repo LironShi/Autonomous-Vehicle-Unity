@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 2445814245626131484}
   m_Layer: 7
   m_Name: RoadSigns-2
-  m_TagString: Untagged
+  m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

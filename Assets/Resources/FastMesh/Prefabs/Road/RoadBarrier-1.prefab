@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 3706778401633951422}
   m_Layer: 7
   m_Name: RoadBarrier-1
-  m_TagString: Untagged
+  m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
