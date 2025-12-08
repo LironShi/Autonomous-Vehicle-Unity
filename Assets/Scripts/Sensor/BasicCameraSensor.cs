@@ -38,7 +38,7 @@ namespace Sensor
                 if (!GeometryUtility.TestPlanesAABB(_frustumPlanes, colliderCollected.bounds))
                 {   
                     _detectedCollidersCollected.Remove(colliderCollected);
-                    DetectedObjectData.LogExitDetected(colliderCollected);
+                    Debug.Log($"Object: {colliderCollected.name} is no longer detected.");
                 }
             }
 

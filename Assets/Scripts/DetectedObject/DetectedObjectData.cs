@@ -14,11 +14,6 @@ public class DetectedObjectData
         WorldPosition = collider.transform.position;
         TimeDetected = Time.time;
     }
-
-    public static void LogExitDetected(Collider collider)
-    {
-        Debug.Log($"Object: {collider.name} is no longer detected.");
-    }
     public override string ToString()
     {
         return $"Name: {ObjectName}, Type: {ObjectType}, Position: {WorldPosition}, Detected At: {TimeDetected}";
