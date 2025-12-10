@@ -1,20 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class VehicleMovment : MonoBehaviour
+namespace Vehicle
 {
-    public Transform target;
-    private NavMeshAgent agent;
-    
-    
-    void Awake()
+    public class VehicleMovment : MonoBehaviour
     {
-        agent = GetComponent<NavMeshAgent>();
-    }
+        public Transform target;
+        private NavMeshAgent _agent;
     
-    void Start()
-    {
-        if (target != null)
-            agent.SetDestination(target.position);
+    
+        void Awake()
+        {
+            _agent = GetComponent<NavMeshAgent>();
+        }
+    
+        void Start()
+        {
+            if (target != null)
+                _agent.SetDestination(target.position);
+        }
     }
 }
